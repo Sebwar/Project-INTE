@@ -1,2 +1,2 @@
-# project-INTE
+# Project-INTE
 A school project.
