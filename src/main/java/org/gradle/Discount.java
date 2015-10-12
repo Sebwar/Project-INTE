@@ -25,5 +25,12 @@ public abstract class Discount {
 		productIDs.add(productID);
 	}
 	
+	public void addProduct(int productID) {
+		if (productID < 0)
+			throw new IllegalArgumentException();
+		
+		productIDs.add(productID);
+	}
+	
 	public abstract int apply(OrderLine orderLine);
 }
