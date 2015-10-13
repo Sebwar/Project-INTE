@@ -1,0 +1,18 @@
+INDEX VERSION 1.127+C:\Users\Niklas\INTEprojekt\.metadata\.plugins\org.eclipse.jdt.core
+2540319612.index
+1910806192.index
+4275793973.index
+515822981.index
+829513740.index
+1519441893.index
+376731031.index
+1916054518.index
+928497181.index
+695197182.index
+3242763260.index
+573786967.index
+2688455030.index
+3230348504.index
+482528448.index
+778769425.index
+3570209253.index
