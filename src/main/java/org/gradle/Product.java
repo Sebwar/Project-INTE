@@ -3,7 +3,7 @@ package org.gradle;
 public class Product {
 	private int id;
 	private String name;
-	private int price;
+	private int price;  //Per gram for weighted products.
 	private boolean weightPriced;
 	
 	public Product(int id, String name, int price, boolean weightPriced) {

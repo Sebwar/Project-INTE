@@ -1,9 +1,11 @@
+package org.gradle;
+
 import java.util.Date;
 
 
 public class DiscountPercent extends Discount {
 
-	private int percent;
+	private int percent;  //Går att unvika avrundning?
 	
 	public DiscountPercent(Date startTime, Date endTime, int productID, int percent) {
 		super(startTime, endTime, productID);
@@ -20,7 +22,7 @@ public class DiscountPercent extends Discount {
 		//If true return reduced price otherwise return normal price
 		int price = 10;
 		if (productIDs.contains(1))
-			return price*percent/100; //Discount
+			return (int)Math.ceil((float)(price*(100-percent))/100); //Discount
 		else
 			return price; //No discount
 	}

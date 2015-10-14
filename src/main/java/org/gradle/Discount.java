@@ -1,3 +1,4 @@
+package org.gradle;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -16,10 +17,10 @@ public abstract class Discount {
 	 */
 	public Discount(Date startTime, Date endTime, int productID) {
 		if (productID < 0)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Product ID cannot be negative.");
 		
 		if (endTime.getTime() < startTime.getTime())
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("End time cannot be earlier than start time.");
 		
 		productIDs = new ArrayList<Integer>();
 		productIDs.add(productID);

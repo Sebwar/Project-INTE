@@ -1,3 +1,5 @@
+package org.gradle;
+
 import static org.junit.Assert.*;
 
 import java.text.SimpleDateFormat;

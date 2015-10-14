@@ -1,19 +1,27 @@
+package org.gradle;
+
 import java.util.Date;
 
 
 public class DiscountAmount extends Discount {
 
-	private int reqAmount;
-	private int redAmount;
+	private int requiredQuantity;
+	private int reductionQuantity;
 	
-	public DiscountAmount(Date startTime, Date endTime, int productID, int reqAmount, int redAmount) {
+	public DiscountAmount(Date startTime, Date endTime, int productID, int requiredQuantity, int reductionQuantity) {
 		super(startTime, endTime, productID);
 		
-		if (reqAmount < 0 || redAmount < 0 || reqAmount < redAmount)
-			throw new IllegalArgumentException();
+		if (requiredQuantity < 2)
+			throw new IllegalArgumentException("Required quantity cannot be less than 2.");
 		
-		this.reqAmount = reqAmount;
-		this.redAmount = redAmount;
+		if (reductionQuantity < 1)
+			throw new IllegalArgumentException("Reduction quantity cannot be less than 1.");
+		
+		if (requiredQuantity < reductionQuantity)
+			throw new IllegalArgumentException("Required quantity cannot be less than reduction quantity.");
+		
+		this.requiredQuantity = requiredQuantity;
+		this.reductionQuantity = reductionQuantity;
 	}
 
 	@Override
@@ -25,7 +33,7 @@ public class DiscountAmount extends Discount {
 		int productPrice = 10;
 		
 		if (productIDs.contains(1))
-			productAmount -= (productAmount / reqAmount) * redAmount;
+			productAmount -= (productAmount / requiredQuantity) * reductionQuantity;
 		
 		return productAmount * productPrice;
 	}
