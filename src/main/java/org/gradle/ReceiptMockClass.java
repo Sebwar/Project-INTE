@@ -1,6 +1,6 @@
 package org.gradle;
 
-public class KvittoMockClass {
+public class ReceiptMockClass {
 	
 	
 	private int id;
@@ -13,7 +13,7 @@ public class KvittoMockClass {
 	
 	
 	//Mocks Product
-	public KvittoMockClass (int id, String name, int amount, boolean priceByWeight, int productPrice) {
+	public ReceiptMockClass (int id, String name, int amount, boolean priceByWeight, int productPrice) {
 		this.id = id;
 		this.name = name;
 		this.amount = amount;
@@ -22,13 +22,13 @@ public class KvittoMockClass {
 	}
 	
 	//Mocks Customer
-	public KvittoMockClass (String name, String adress) {
+	public ReceiptMockClass (String name, String adress) {
 		this.name = name;
 		this.adress = adress;
 	}
 	
 	//Mocks Sales
-	public KvittoMockClass (String name, int discount) {
+	public ReceiptMockClass (String name, int discount) {
 		this.name = name;
 		this.discount = discount;
 	}

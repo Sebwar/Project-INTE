@@ -33,5 +33,9 @@ public abstract class Discount {
 		productIDs.add(productID);
 	}
 	
+	public boolean isDiscounted(Product product) {
+		return productIDs.contains(product.getID());
+	}
+	
 	public abstract int apply(OrderLine orderLine);
 }

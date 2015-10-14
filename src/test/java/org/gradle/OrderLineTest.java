@@ -8,17 +8,17 @@ public class OrderLineTest {
 	@Test
 	public void testConstructorStyck() {
 		Product p = new Product(240, "Tandkräm", 25, false);
-		OrderLine o = new OrderLine(p, 2);
+		OrderLine ol = new OrderLine(p, 2);
 		
-		assertEquals(50, o.getTotalPrice());
+		assertEquals(50, ol.getTotalPrice());
 			
 	}
 	
 	public void testConstructorKilo(){
-		Product p = new Product(58, "Kaffe", 84, true);
-		OrderLine o = new OrderLine(p, 0.5);
+		Product p = new Product(58, "Kaffe", 14, true);
+		OrderLine ol = new OrderLine(p, 50);
 	
-		assertEquals(42, o.getTotalPrice());
+		assertEquals(700, ol.getTotalPrice());
 		
 	}
 	

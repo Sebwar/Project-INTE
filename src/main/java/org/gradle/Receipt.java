@@ -1,10 +1,10 @@
 package org.gradle;
 
-// import java.util.ArrayList;
+import java.util.ArrayList;
 
-public class Kvitto {
+public class Receipt {
 	
-	OrderLine orderLine;
+	private ArrayList<OrderLine> orderLines;
 	
 	
 	/**		Inte helt säker på detta...
@@ -16,7 +16,7 @@ public class Kvitto {
 	 */
 	
 	
-	public Kvitto () {
+	public Receipt () {
 		
 	}
 	
