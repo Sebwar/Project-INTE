@@ -17,7 +17,7 @@ public class DiscountPercent extends Discount {
 	}
 
 	@Override
-	public int apply(OrderLine orderLine) {
+	public int apply(OrderLineMock orderLine) {
 		//Compare Discount.productID with orderLine.productID
 		//If true return reduced price otherwise return normal price
 		int price = 10;

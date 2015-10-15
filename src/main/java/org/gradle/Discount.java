@@ -37,5 +37,5 @@ public abstract class Discount {
 		return productIDs.contains(product.getID());
 	}
 	
-	public abstract int apply(OrderLine orderLine);
+	public abstract int apply(OrderLineMock orderLine);
 }
