@@ -35,6 +35,65 @@ public class MoneyTest {
 	}
 	
 	@Test
+	public void testAddZero() {
+		money = new Money(Currency.EUR, 41);
+		money = money.add(0);
+		assertEquals(41, money.getTotalAmountInMinorUnit());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testAddNegative() {
+		money = new Money(Currency.SEK, 88);
+		money = money.add(-1);
+	}
+	
+	@Test
+	public void testAddMoneyObject() {
+		money = new Money(Currency.USD, 76);
+		money = money.add(new Money(Currency.USD, 52));
+		assertEquals(128, money.getTotalAmountInMinorUnit());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testAddMoneyObjectDifferentCurrency() {
+		money = new Money(Currency.USD, 72);
+		money = money.add(new Money(Currency.SEK, 53));
+	}
+	
+	@Test
+	public void testSubtract() {
+		money = new Money(Currency.SEK, 55);
+		money = money.subtract(1);
+		assertEquals(56, money.getTotalAmountInMinorUnit());
+	}
+	
+	@Test
+	public void testSubtractZero() {
+		money = new Money(Currency.EUR, 41);
+		money = money.subtract(0);
+		assertEquals(41, money.getTotalAmountInMinorUnit());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSubtractNegative() {
+		money = new Money(Currency.SEK, 88);
+		money = money.subtract(-1);
+	}
+	
+	@Test
+	public void testSubtractMoneyObject() {
+		money = new Money(Currency.USD, 76);
+		money = money.subtract(new Money(Currency.USD, 52));
+		assertEquals(128, money.getTotalAmountInMinorUnit());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSubtractMoneyObjectDifferentCurrency() {
+		money = new Money(Currency.USD, 72);
+		money = money.subtract(new Money(Currency.SEK, 53));
+	}
+	
+	@Test
 	public void testCompareToLessThan() {
 		money = new Money(Currency.EUR, 111);
 		Money other = new Money(Currency.EUR, 110);

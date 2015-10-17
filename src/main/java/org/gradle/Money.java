@@ -32,7 +32,27 @@ public class Money implements Comparable<Money> {
 	}
 	
 	public Money add(long addend) {
-		
+		if(addend < 0)
+			throw new IllegalArgumentException("Cannot add a negative amount.");
+		return new Money(currency, amount + addend);
+	}
+	
+	public Money add(Money addend) {
+		if(addend.currency != currency)
+			throw new IllegalArgumentException("The money has to be of the same currency");
+		return add(addend.amount);
+	}
+	
+	public Money subtract(long addend) {
+		if(addend < 0)
+			throw new IllegalArgumentException("Cannot add a negative amount.");
+		return new Money(currency, amount + addend);
+	}
+	
+	public Money subtract(Money addend) {
+		if(addend.currency != currency)
+			throw new IllegalArgumentException("The money has to be of the same currency");
+		return subtract(addend.amount);
 	}
 	
 	public int compareTo(Money other) {
