@@ -28,6 +28,13 @@ public class MoneyTest {
 	}
 	
 	@Test
+	public void testAdd() {
+		money = new Money(Currency.SEK, 55);
+		money = money.add(1);
+		assertEquals(56, money.getTotalAmountInMinorUnit());
+	}
+	
+	@Test
 	public void testCompareToLessThan() {
 		money = new Money(Currency.EUR, 111);
 		Money other = new Money(Currency.EUR, 110);
