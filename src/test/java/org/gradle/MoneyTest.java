@@ -64,7 +64,7 @@ public class MoneyTest {
 	public void testSubtract() {
 		money = new Money(Currency.SEK, 55);
 		money = money.subtract(1);
-		assertEquals(56, money.getTotalAmountInMinorUnit());
+		assertEquals(54, money.getTotalAmountInMinorUnit());
 	}
 	
 	@Test
@@ -84,7 +84,7 @@ public class MoneyTest {
 	public void testSubtractMoneyObject() {
 		money = new Money(Currency.USD, 76);
 		money = money.subtract(new Money(Currency.USD, 52));
-		assertEquals(128, money.getTotalAmountInMinorUnit());
+		assertEquals(24, money.getTotalAmountInMinorUnit());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -126,5 +126,17 @@ public class MoneyTest {
 		money = new Money(Currency.EUR, 110);
 		Money other = new Money(Currency.USD, 110);
 		assertTrue(money.compareTo(other) == 0);
+	}
+	
+	@Test
+	public void testToString() {
+		money = new Money(Currency.SEK, 127);
+		assertEquals("1.27 kr", money.toString());
+	}
+	
+	@Test
+	public void testToStringPrefixedSign() {
+		money = new Money(Currency.USD, 127);
+		assertEquals("$ 1.27", money.toString());
 	}
 }

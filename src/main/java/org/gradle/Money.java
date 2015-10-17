@@ -43,16 +43,16 @@ public class Money implements Comparable<Money> {
 		return add(addend.amount);
 	}
 	
-	public Money subtract(long addend) {
-		if(addend < 0)
-			throw new IllegalArgumentException("Cannot add a negative amount.");
-		return new Money(currency, amount + addend);
+	public Money subtract(long subtrahend) {
+		if(subtrahend < 0)
+			throw new IllegalArgumentException("Cannot subtract a negative amount.");
+		return new Money(currency, amount - subtrahend);
 	}
 	
-	public Money subtract(Money addend) {
-		if(addend.currency != currency)
+	public Money subtract(Money subtrahend) {
+		if(subtrahend.currency != currency)
 			throw new IllegalArgumentException("The money has to be of the same currency");
-		return subtract(addend.amount);
+		return subtract(subtrahend.amount);
 	}
 	
 	public int compareTo(Money other) {
@@ -64,6 +64,10 @@ public class Money implements Comparable<Money> {
 	}
 	
 	public String toString() {
-		return null;
+		String s = String.format("%d.%d", getAmountOfMajorUnit(), getAmountOfMinorUnit());
+		if(currency.isSignPrefixed())
+			return currency.getSign() + " " + s;
+		else 
+			return s + " " + currency.getSign();
 	}
 }
