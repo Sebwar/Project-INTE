@@ -1,7 +1,6 @@
 package org.gradle;
 
 public class Customer {
-	
 	private String orgNr;
 	private String firstName;
 	private String lastName;
@@ -10,25 +9,38 @@ public class Customer {
 	private String phone;
 	
 	//Construct
-	public Customer (String orgNr, String firstName, String lastName, String address, String street, String phone)
-    {
-		this.firstName = orgNr;
+	public Customer (String orgNr, String firstName, String lastName, String address, String street, String phone) {
+		this.orgNr = orgNr;
         this.firstName = firstName;
         this.lastName = lastName;
         this.street = street;
         this.address = address;
-        this.address = phone;
+        this.phone = phone;
     }
+	
+	public String getOrgnr() {
+	    return orgNr;
+	}
 	
 	public String getFullName() {
 	    return firstName + " " + lastName;
 	}
 	
-
-	@Override		
-	public String toString()
-    {
-        //Create a String that represents this object
+	public String getStreet() {
+	    return street;
+	}
+	
+	public String getAdress() {
+	    return address;
+	}
+	
+	public String getPhone() {
+	    return phone;
+	}
+	
+	@Override
+	//Formated String that represents this object
+	public String toString() {
         return orgNr + "\n" + firstName + " " + lastName + "\n" + street + "\n" + address + "\n" + phone;
     }
 	
