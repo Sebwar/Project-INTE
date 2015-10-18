@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class CouponTest {
-
 	int couponDeduct = 20;
 	int couponMinAmount = 200;
 	int amount = 500;
