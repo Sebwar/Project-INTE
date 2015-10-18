@@ -15,6 +15,9 @@ public class OrderLineTest {
 	OrderLine o1k = new OrderLine(k, 50);
 	OrderLine o2k = new OrderLine(h, 150);
 	
+	java.util.Date d1 = new java.util.Date(670);
+	java.util.Date d2 = new java.util.Date(875600);
+	
 	@Test
 	public void testConstructorStyck() {//pris i öre/st
 		
@@ -39,6 +42,19 @@ public class OrderLineTest {
 		
 		assertEquals("ProduktID 58  50g*14öre/g  700öre", o1k.toString());
 		assertEquals("ProduktID 463  150g*16öre/g  2400öre", o2k.toString());
+		
+	}
+	@Test
+	public void testDiscountPercentStyck(){
+		
+		DiscountMock disc = new DiscountPercentMock(d1, d2, 67, 30);
+		o2s.addDiscount(disc);
+		o1s.addDiscount(disc);
+		
+		
+		assertEquals(50, o1s.getTotalPrice());
+		assertEquals(98, o2s.getTotalPrice());
+		
 		
 	}
 	

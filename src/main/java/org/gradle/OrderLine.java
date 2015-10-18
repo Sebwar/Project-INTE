@@ -1,5 +1,7 @@
 package org.gradle;
 
+import java.util.ArrayList;
+
 public class OrderLine {
 	
 	private Product product;
@@ -7,6 +9,7 @@ public class OrderLine {
 	private int price;
 	private int totalPrice;
 	private int productID;
+	static ArrayList<DiscountMock> discount = new ArrayList<DiscountMock>();
 	
 	public OrderLine (Product product, int quantity) {
 		this.product = product;		
@@ -18,6 +21,16 @@ public class OrderLine {
 	}
 	
 	public int getTotalPrice() {
+		for (int reg=0; reg < discount.size(); reg++ ){
+			if (discount.get(reg).isDiscounted(product)){
+				return discount.get(reg).apply(this);
+			}
+			else{
+				return totalPrice;
+			}
+			
+			
+		}
 		return price * quantity;
 	}
 	
@@ -30,8 +43,22 @@ public class OrderLine {
 		}
 		else {
 			return "ProduktID "+productID+"  "+quantity+"st*"+price+"öre  "+totalPrice+"öre";
-		}
-			
-		
+		}	
 	}
+	
+	//Tillfälliga metoder
+	public void addDiscount(DiscountMock discP){
+		discount.add(discP);
+	}
+	public int getProductID(){
+		return productID;
+	}
+	public int getProductPrice(){
+		return price;
+	}
+	public int getProductQuantity(){
+		return quantity;
+	}
+	
+		
 }
