@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="lol.hi.TicTacToeTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-10-05T18:53:10" hostname="Sebastian-PC" time="0.004">
+<testsuite name="lol.hi.TicTacToeTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-10-18T17:09:04" hostname="T" time="0.007">
   <properties/>
   <testcase name="testBoardInitiallyEmpty" classname="lol.hi.TicTacToeTest" time="0.0"/>
-  <testcase name="testVictorDecidedColumnVictory" classname="lol.hi.TicTacToeTest" time="0.0"/>
+  <testcase name="testVictorDecidedColumnVictory" classname="lol.hi.TicTacToeTest" time="0.001"/>
   <testcase name="testVictorDecidedDiagonal1Victory" classname="lol.hi.TicTacToeTest" time="0.0"/>
-  <testcase name="testVictorDecidedDiagonal2Victory" classname="lol.hi.TicTacToeTest" time="0.0"/>
+  <testcase name="testVictorDecidedDiagonal2Victory" classname="lol.hi.TicTacToeTest" time="0.003"/>
   <testcase name="testStartAITurn" classname="lol.hi.TicTacToeTest" time="0.0"/>
-  <testcase name="testIsATie" classname="lol.hi.TicTacToeTest" time="0.001"/>
-  <testcase name="testVictorDecidedRowVictory" classname="lol.hi.TicTacToeTest" time="0.0"/>
+  <testcase name="testIsATie" classname="lol.hi.TicTacToeTest" time="0.0"/>
+  <testcase name="testVictorDecidedRowVictory" classname="lol.hi.TicTacToeTest" time="0.001"/>
   <testcase name="testVictorDecidedWithNoVictor" classname="lol.hi.TicTacToeTest" time="0.0"/>
   <system-out><![CDATA[-, O, X
 O, O, X

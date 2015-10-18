@@ -30,7 +30,7 @@ public class Customer {
 	    return street;
 	}
 	
-	public String getAdress() {
+	public String getAddress() {
 	    return address;
 	}
 	
