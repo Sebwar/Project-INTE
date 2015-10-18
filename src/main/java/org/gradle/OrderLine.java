@@ -25,10 +25,6 @@ public class OrderLine {
 			if (discount.get(reg).isDiscounted(product)){
 				return discount.get(reg).apply(this);
 			}
-			else{
-				return totalPrice;
-			}
-			
 			
 		}
 		return price * quantity;

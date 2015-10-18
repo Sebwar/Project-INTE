@@ -18,14 +18,8 @@ public class DiscountPercentMock extends DiscountMock {
 
 	@Override
 	public int apply(OrderLine orderLine) {
-		
-		//product.getID
-		
-		
 		//Compare Discount.productID with orderLine.productID
 		//If true return reduced price otherwise return normal price
-		
-		
 		int price = orderLine.getProductPrice()*orderLine.getProductQuantity();
 		if (productIDs.contains(orderLine.getProductID()))
 			return (int)Math.ceil((float)(price*(100-percent))/100); //Discount

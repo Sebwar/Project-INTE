@@ -55,8 +55,20 @@ public class OrderLineTest {
 		assertEquals(50, o1s.getTotalPrice());
 		assertEquals(98, o2s.getTotalPrice());
 		
+	}
+	@Test
+	public void testDiscountPercentKilo(){
+		
+		DiscountMock disc = new DiscountPercentMock(d1, d2, 463, 35);
+		o2k.addDiscount(disc);
+		o1k.addDiscount(disc);
+		
+		
+		assertEquals(700, o1k.getTotalPrice());
+		assertEquals(1560, o2k.getTotalPrice());
 		
 	}
+	
 	
 	
 }
