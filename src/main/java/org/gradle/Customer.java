@@ -42,8 +42,6 @@ public class Customer {
 	//Formated String that represents this object
 	public String toString() {
         return orgNr + "\n" + firstName + " " + lastName + "\n" + street + "\n" + address + "\n" + phone;
-    }
-	
-	
+    }	
 }
 
