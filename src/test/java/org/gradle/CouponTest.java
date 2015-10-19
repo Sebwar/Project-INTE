@@ -8,7 +8,7 @@ public class CouponTest {
 	int couponMinAmount = 200;
 	int amount = 500;
 	int result;
-
+    
     //Test method for deducting
     @Test
     public void testDeduct() {
@@ -17,14 +17,11 @@ public class CouponTest {
         assertTrue(result == 480);
     }
     
-    //Test method for deducting if more than couponMinAmount
+    //Test if amount is bigger or equal than couponMinAmount
     @Test
-    public void testDeductIfMinAmount() {
+    public void testAmountIsBiggerThanCouponMinAmount() {
     	CouponTest ct = new CouponTest();
-    	if(amount < couponMinAmount) {
-		result = ct.amount - couponDeduct;
-        assertTrue(result == 480);
+        assertTrue(ct.amount >= couponMinAmount);
     	}
     }
-
-} 
+ 
