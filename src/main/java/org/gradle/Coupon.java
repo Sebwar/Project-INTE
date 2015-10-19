@@ -15,7 +15,7 @@ public class Coupon {
 		if (amount < 0)
 			throw new IllegalArgumentException("Total amount cannot be negative.");
 		
-		if (amount < couponMinAmount)
+		if (amount >= couponMinAmount)
 			throw new IllegalArgumentException("Total amount cannot be under 200.");
 		
 		return amount - couponDeduct;
