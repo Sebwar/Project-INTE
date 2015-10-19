@@ -9,7 +9,7 @@ public class OrderLine {
 	private int price;
 	private int totalPrice;
 	private int productID;
-	static ArrayList<DiscountMock> discount = new ArrayList<DiscountMock>();
+	static ArrayList<Discount> discount = new ArrayList<Discount>();
 	
 	public OrderLine (Product product, int quantity) {
 		this.product = product;		
@@ -43,7 +43,7 @@ public class OrderLine {
 	}
 	
 	//Tillfälliga metoder
-	public void addDiscount(DiscountMock discP){
+	public void addDiscount(Discount discP){
 		discount.add(discP);
 	}
 	public int getProductID(){

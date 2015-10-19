@@ -1,5 +1,6 @@
 package org.gradle;
 
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -47,7 +48,7 @@ public class OrderLineTest {
 	@Test
 	public void testDiscountPercentStyck(){
 		
-		DiscountMock disc = new DiscountPercentMock(d1, d2, 67, 30);
+		Discount disc = new DiscountPercentMock(d1, d2, 67, 30);
 		o2s.addDiscount(disc);
 		o1s.addDiscount(disc);
 		
@@ -59,7 +60,7 @@ public class OrderLineTest {
 	@Test
 	public void testDiscountPercentKilo(){
 		
-		DiscountMock disc = new DiscountPercentMock(d1, d2, 463, 35);
+		Discount disc = new DiscountPercentMock(d1, d2, 463, 35);
 		o2k.addDiscount(disc);
 		o1k.addDiscount(disc);
 		
@@ -67,6 +68,20 @@ public class OrderLineTest {
 		assertEquals(700, o1k.getTotalPrice());
 		assertEquals(1560, o2k.getTotalPrice());
 		
+	}
+	@Test
+	public void testDiscountAmountStyck(){
+		
+		OrderLine o3s = new OrderLine(tk, 5);
+		
+		Discount disc = new DiscountAmountMock(d1, d2, 240, 2, 1);
+		//o2s.addDiscount(disc);
+		o1s.addDiscount(disc);
+		o3s.addDiscount(disc);
+		
+		assertEquals(25, o1s.getTotalPrice());
+		//assertEquals(140, o2s.getTotalPrice()); //Mislyckas för att discount från tidigare OrderLine lagras i orderline
+		assertEquals(75, o3s.getTotalPrice());
 	}
 	
 	

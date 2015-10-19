@@ -2,7 +2,7 @@ package org.gradle;
 
 import java.util.Date;
 
-public class DiscountPercentMock extends DiscountMock {
+public class DiscountPercentMock extends Discount {
 	
 	private int percent;  //Går att unvika avrundning?
 	
