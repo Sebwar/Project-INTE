@@ -6,9 +6,13 @@ public class OrderLine {
 	
 	private Product product;
 	private int quantity;
+	private double quantityKg;
 	private int price;
 	private int totalPrice;
 	private int productID;
+	private Money moneySt;
+	private Money moneyTot;
+	private Money moneyKg;
 	static ArrayList<Discount> discount = new ArrayList<Discount>();
 	
 	public OrderLine (Product product, int quantity) {
@@ -17,9 +21,12 @@ public class OrderLine {
 		price = product.getPrice();
 		totalPrice = price * quantity;
 		productID = product.getID();
-			
+		quantityKg = (double)quantity/1000;
+		
+		moneySt = new Money(Currency.SEK, product.getPrice());
+		moneyTot = new Money(Currency.SEK, totalPrice);	
 	}
-	
+	//totalprice i öre (Minor unit)
 	public int getTotalPrice() {
 		for (int reg=0; reg < discount.size(); reg++ ){
 			if (discount.get(reg).isDiscounted(product)){
@@ -34,17 +41,18 @@ public class OrderLine {
 	
 	public String toString() {
 		if(product.isWeightPriced() == true){
-			return "ProduktID "+productID+"  "+quantity+"g*"+price+"öre/g  "+totalPrice+"öre";
+			moneyKg = new Money(Currency.SEK, product.getPrice()*1000);
+			return "ProduktID "+productID+"  "+quantityKg+"kg*"+moneyKg.getAmountOfMajorUnit()+","+moneyKg.getAmountOfMinorUnit()+"kr/kg  "+moneyTot.getAmountOfMajorUnit()+","+moneyTot.getAmountOfMinorUnit()+"kr";
 				
 		}
 		else {
-			return "ProduktID "+productID+"  "+quantity+"st*"+price+"öre  "+totalPrice+"öre";
+			return "ProduktID "+productID+"  "+quantity+"st*"+moneySt.getAmountOfMajorUnit()+","+moneySt.getAmountOfMinorUnit()+"kr  "+moneyTot.getAmountOfMajorUnit()+","+moneyTot.getAmountOfMinorUnit()+"kr";
 		}	
 	}
 	
-	//Tillfälliga metoder
-	public void addDiscount(Discount discP){
-		discount.add(discP);
+	//Metoder jag är osäker på
+	public void addDiscount(Discount discA){
+		discount.add(discA);
 	}
 	public int getProductID(){
 		return productID;
