@@ -26,6 +26,6 @@ public class DiscountPercentMock extends Discount {
 		else
 			return price; //No discount
 	}
-	
+		
 }
 

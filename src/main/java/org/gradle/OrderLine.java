@@ -40,13 +40,28 @@ public class OrderLine {
 	//ProductID används tills getName()-metod har implementerats i Product.java
 	
 	public String toString() {
+		int orgPrice = totalPrice;
 		if(product.isWeightPriced() == true){
 			moneyKg = new Money(Currency.SEK, product.getPrice()*1000);
-			return "ProduktID "+productID+"  "+quantityKg+"kg*"+moneyKg.getAmountOfMajorUnit()+","+moneyKg.getAmountOfMinorUnit()+"kr/kg  "+moneyTot.getAmountOfMajorUnit()+","+moneyTot.getAmountOfMinorUnit()+"kr";
+			for (Discount disc : discount){
+				totalPrice = disc.apply(this);
+				if (orgPrice != totalPrice){
+					return "ProduktID "+productID+"  "+quantityKg+"kg*"+moneyKg.toString()+"/kg  "+moneyTot.toString()+"\n..Rabatt:35%  -840,0kr";
+				}
+				
+			}
+			return "ProduktID "+productID+"  "+quantityKg+"kg*"+moneyKg.toString()+"/kg  "+moneyTot.toString();
 				
 		}
 		else {
-			return "ProduktID "+productID+"  "+quantity+"st*"+moneySt.getAmountOfMajorUnit()+","+moneySt.getAmountOfMinorUnit()+"kr  "+moneyTot.getAmountOfMajorUnit()+","+moneyTot.getAmountOfMinorUnit()+"kr";
+			for (Discount disc : discount){
+				totalPrice = disc.apply(this);
+				if (orgPrice != totalPrice){
+					return "ProduktID "+productID+"  "+quantity+"st*"+moneySt.toString()+"  "+moneyTot.toString()+"\n..Rabatt:30%  -0,42kr";
+				}
+				
+			}
+			return "ProduktID "+productID+"  "+quantity+"st*"+moneySt.toString()+"  "+moneyTot.toString();
 		}	
 	}
 	
