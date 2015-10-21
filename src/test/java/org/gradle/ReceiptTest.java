@@ -5,9 +5,10 @@ import org.junit.Test;
 
 
 public class ReceiptTest {
+	
+	private Receipt receipt;
 		
 	ReceiptMockClass testCustomer = new ReceiptMockClass ("org1", "Jor", "El", "Town", "The Street", "555 phone");
-	
 	
 	@Test
 	public void testNewProduct() {
@@ -31,14 +32,23 @@ public class ReceiptTest {
 	}
 	
 	@Test
-	public void testConstructor() {
-		
-	}
-	
-	@Test
 	public void testGetTotal() {
 		ReceiptMockClass testProduct = new ReceiptMockClass (123, "Test", 2, false, 15);
 		assertEquals(30, testProduct.getTotalCost());
+	}
+	
+	@Test
+	public void testNewCoupon() {
+		ReceiptMockClass testCoupon = new ReceiptMockClass (50);
+			assertEquals(50, testCoupon.getAmount());
+	}
+	
+	@Test
+	public void testConstructor() {
+//		ReceiptMockClass product = new ReceiptMockClass(100, "Horse", 2, false, 40);
+		ReceiptMockClass customer = new ReceiptMockClass("org", "Bruce", "Wayne", "Gotham City", "Batcave", "555 213123");
+		receipt = new Receipt(customer);
+		assertEquals ("Bruce", customer.getName());
 	}
 	
 	

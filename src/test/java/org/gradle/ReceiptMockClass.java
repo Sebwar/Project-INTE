@@ -2,7 +2,6 @@ package org.gradle;
 
 public class ReceiptMockClass {
 	
-	
 	private int id;
 	private String orgNr;
 	private String name;
@@ -12,13 +11,13 @@ public class ReceiptMockClass {
 	private String street;
 	private String phone;
 	private int amount;
+	private int quantity;
 	private boolean priceByWeight;
 	private int productPrice;
-	private int discount;
-	private int totalCost;	
+	private int totalCost;
 	
 	//Mocks Product
-	public ReceiptMockClass (int id, String name, int amount, boolean priceByWeight, int productPrice) {
+	public ReceiptMockClass(int id, String name, int amount, boolean priceByWeight, int productPrice) {
 		this.id = id;
 		this.name = name;
 		this.amount = amount;
@@ -28,13 +27,18 @@ public class ReceiptMockClass {
 	}
 	
 	//Mocks Customer
-	public ReceiptMockClass (String orgNr, String firstName, String lastName, String address, String street, String phone) {
+	public ReceiptMockClass(String orgNr, String firstName, String lastName, String address, String street, String phone) {
 		this.orgNr = orgNr;
         this.firstName = firstName;
         this.lastName = lastName;
         this.street = street;
         this.address = address;
         this.phone = phone;
+	}
+	
+	//Mocks Coupon
+	public ReceiptMockClass(int amount) {
+		this.amount = amount;
 	}
 	
 	public int getId() {
@@ -73,16 +77,16 @@ public class ReceiptMockClass {
 		return amount;
 	}
 	
+	public int getQuantity() {
+		return quantity;
+	}
+	
 	public boolean getPriceByWeight() {
 		return priceByWeight;
 	}
 	
 	public int getProductPrice() {
 		return productPrice;
-	}
-	
-	public int getDiscount() {
-		return discount;
 	}
 
 	public int getTotalCost() {
