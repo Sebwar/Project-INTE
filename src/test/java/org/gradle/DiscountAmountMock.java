@@ -37,6 +37,7 @@ public class DiscountAmountMock extends Discount {
 		
 		return productAmount * productPrice;
 	}
+	
 
 }
 
