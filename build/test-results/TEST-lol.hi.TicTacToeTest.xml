@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="lol.hi.TicTacToeTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-10-21T13:41:17" hostname="Sebastian-PC" time="0.009">
+<testsuite name="lol.hi.TicTacToeTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-10-21T15:45:25" hostname="Sebastian-PC" time="0.004">
   <properties/>
   <testcase name="testBoardInitiallyEmpty" classname="lol.hi.TicTacToeTest" time="0.0"/>
   <testcase name="testVictorDecidedColumnVictory" classname="lol.hi.TicTacToeTest" time="0.001"/>
   <testcase name="testVictorDecidedDiagonal1Victory" classname="lol.hi.TicTacToeTest" time="0.001"/>
-  <testcase name="testVictorDecidedDiagonal2Victory" classname="lol.hi.TicTacToeTest" time="0.001"/>
+  <testcase name="testVictorDecidedDiagonal2Victory" classname="lol.hi.TicTacToeTest" time="0.0"/>
   <testcase name="testStartAITurn" classname="lol.hi.TicTacToeTest" time="0.001"/>
   <testcase name="testIsATie" classname="lol.hi.TicTacToeTest" time="0.0"/>
   <testcase name="testVictorDecidedRowVictory" classname="lol.hi.TicTacToeTest" time="0.0"/>
