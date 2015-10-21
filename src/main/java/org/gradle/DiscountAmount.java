@@ -8,8 +8,8 @@ public class DiscountAmount extends Discount {
 	private int requiredQuantity;
 	private int reductionQuantity;
 	
-	public DiscountAmount(Date startTime, Date endTime, int productID, int requiredQuantity, int reductionQuantity) {
-		super(startTime, endTime, productID);
+	public DiscountAmount(Date startTime, Date endTime, int itemID, boolean categoryDiscount, int requiredQuantity, int reductionQuantity) {
+		super(startTime, endTime, itemID, categoryDiscount);
 		
 		if (requiredQuantity < 2)
 			throw new IllegalArgumentException("Required quantity cannot be less than 2.");
@@ -23,6 +23,10 @@ public class DiscountAmount extends Discount {
 		this.requiredQuantity = requiredQuantity;
 		this.reductionQuantity = reductionQuantity;
 	}
+	
+	public String toString() {
+		return "Buy " + requiredQuantity + " pay for " + (requiredQuantity-reductionQuantity);
+	}
 
 	@Override
 	public int apply(OrderLine orderLine) {
@@ -32,7 +36,7 @@ public class DiscountAmount extends Discount {
 		int productAmount = 3;
 		int productPrice = 10;
 		
-		if (productIDs.contains(1))
+		if (itemIDs.contains(1))
 			productAmount -= (productAmount / requiredQuantity) * reductionQuantity;
 		
 		return productAmount * productPrice;
