@@ -2,54 +2,50 @@ package org.gradle;
 
 import java.util.ArrayList;
 
+import org.gradle.discounts.Discount;
+import org.gradle.discounts.DiscountAmount;
+
 public class OrderLine {
 	
 	private Product product;
 	private int quantity;
 	private double quantityKg;
-	private int price;
-	private int totalPrice;
+	private Money totalPrice;
 	private int productID;
 	private String stringOut;
 	private Money moneySt;
-	private Money moneyTot;
-	static ArrayList<Discount> discount = new ArrayList<Discount>();
+	static ArrayList<Discount> discounts = new ArrayList<Discount>();
 	
 	public OrderLine (Product product, int quantity) {
 		this.product = product;		
 		this.quantity = quantity;
-		price = product.getPrice();
-		totalPrice = price * quantity;
+		totalPrice = new Money(product.getCurrency(), product.getPrice() * quantity);
 		productID = product.getID();
 		quantityKg = (double)quantity/1000;
 		
-		moneySt = new Money(Currency.SEK, product.getPrice());
-		moneyTot = new Money(Currency.SEK, totalPrice);	
+		moneySt = new Money(product.getCurrency(), product.getPrice());
 	}
-	//totalprice i öre (Minor unit)
-	public int getTotalPrice() {
-		for (int reg=0; reg < discount.size(); reg++ ){
-			if (discount.get(reg).isDiscounted(productID, false)){
-				return discount.get(reg).apply(this);
-			}
-			
-		}
-		return price * quantity;
+	
+	public long getTotalPrice() {
+		//Apply discount.
+		for (int reg=0; reg < discounts.size(); reg++ )
+			if (discounts.get(reg).isDiscounted(this, false))
+				return discounts.get(reg).apply(this);
+		return product.getPrice() * quantity;
 	}
 	
 	//ProductID används tills getName()-metod har implementerats i Product.java
 	
 	public String toString() {
-		int orgPrice = totalPrice;
-		Money moneyRa = new Money(Currency.SEK, totalPrice);
-		if(product.isWeightPriced() == true){
-			Money moneyKg = new Money(Currency.SEK, product.getPrice()*1000);
-			stringOut = "ProduktID "+productID+"  "+quantityKg+"kg*"+moneyKg.toString()+"/kg  "+moneyTot.toString();
-			for (Discount disc : discount){
-				totalPrice = disc.apply(this);
-				if (orgPrice != totalPrice){
-					moneyRa = moneyTot.subtract(totalPrice);
-					return stringOut+"\n.."+disc.toString()+" -"+moneyRa.toString();
+		Money moneyReduction = new Money(totalPrice.getCurrency(), totalPrice.getTotalAmountInMinorUnit());
+		if(product.isWeightPriced()) {
+			Money moneyKg = new Money(product.getCurrency(), product.getPrice()*1000);
+			stringOut = "ProduktID "+productID+"  "+quantityKg+"kg*"+moneyKg.toString()+"/kg  "+totalPrice;
+			for (Discount discount : discounts){
+				totalPrice = new Money(product.getCurrency(), discount.apply(this));
+				if (discount instanceof DiscountAmount && ((DiscountAmount)discount).isDiscounted(this, false) || !(discount instanceof DiscountAmount) && discount.isDiscounted(this, false)) {
+					moneyReduction = new Money(product.getCurrency(), product.getPrice() * quantity).subtract(totalPrice);
+					return stringOut+"\n.."+discount.toString()+" -"+moneyReduction.toString();
 				}
 				
 			}
@@ -57,12 +53,12 @@ public class OrderLine {
 				
 		}
 		else {
-			stringOut = "ProduktID "+productID+"  "+quantity+"st*"+moneySt.toString()+"  "+moneyTot.toString();
-			for (Discount disc : discount){
-				totalPrice = disc.apply(this);
-				if (orgPrice != totalPrice){
-					moneyRa = moneyTot.subtract(totalPrice);
-					return stringOut+"\n.."+disc.toString()+" -"+moneyRa.toString();
+			stringOut = "ProduktID "+productID+"  "+quantity+"st*"+moneySt.toString()+"  "+totalPrice;
+			for (Discount discount : discounts){
+				totalPrice = new Money(product.getCurrency(), discount.apply(this));
+				if (discount instanceof DiscountAmount && ((DiscountAmount)discount).isDiscounted(this, false) || !(discount instanceof DiscountAmount) && discount.isDiscounted(this, false)) {
+					moneyReduction = new Money(product.getCurrency(), product.getPrice() * quantity).subtract(totalPrice);
+					return stringOut+"\n.."+discount.toString()+" -"+moneyReduction.toString();
 				}
 				
 			}
@@ -72,20 +68,18 @@ public class OrderLine {
 	
 	//Metoder jag är osäker på
 	public void addDiscount(Discount discA){
-		discount.add(discA);
+		discounts.add(discA);
 	}
 	public void removeDiscount(Discount discR){
-		discount.remove(discR);
+		discounts.remove(discR);
 	}
 	public int getProductID(){
 		return productID;
 	}
-	public int getProductPrice(){
-		return price;
+	public long getProductPrice(){
+		return product.getPrice();
 	}
 	public int getProductQuantity(){
 		return quantity;
 	}
-	
-		
 }

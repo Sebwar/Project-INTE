@@ -2,20 +2,34 @@ package org.gradle;
 
 import java.util.ArrayList;
 
+import org.gradle.discounts.Coupon;
+
 public class Receipt {
 	
 	private Customer customer;
-	private Coupon coupon;
-	private int totalCost;
-	
+	private ArrayList<Coupon> coupons = new ArrayList<>();
 	public ArrayList<OrderLine> orderLines = new ArrayList<>();
 	
-	public Receipt(Customer customer, Coupon coupon) {
+	public Receipt(Customer customer) {
 		this.customer = customer;
-		this.coupon = coupon;
 	}
 	
-	for (Orderline orderLine : orderLines) {
-		totalCost += orderLine.getTotalPrice();
-	}}
+	public long getTotalPrice() {
+		long totalCost = 0;
+		for (OrderLine orderLine : orderLines)
+			totalCost += orderLine.getTotalPrice();
+		return totalCost;
+	}
+	
+	public void addCoupon(Coupon coupon) {
+		coupons.add(coupon);
+	}
+	
+	public void addOrderLine(OrderLine orderLine) {
+		orderLines.add(orderLine);
+	}
+	
+	public void generateText() {
+		
+	}
 }

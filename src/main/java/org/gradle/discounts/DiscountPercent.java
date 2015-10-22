@@ -1,6 +1,8 @@
-package org.gradle;
+package org.gradle.discounts;
 
 import java.util.Date;
+
+import org.gradle.OrderLine;
 
 
 public class DiscountPercent extends Discount {
@@ -24,12 +26,12 @@ public class DiscountPercent extends Discount {
 	}
 
 	@Override
-	public int apply(OrderLine orderLine) {
+	public long apply(OrderLine orderLine) {
 		//Compare Discount.productID with orderLine.productID
 		//If true return reduced price otherwise return normal price
-		int price = 10;
-		if (itemIDs.contains(1))
-			return (int)Math.ceil((float)(price*(100-percent))/100); //Discount
+		long price = orderLine.getTotalPrice();
+		if (itemIDs.contains(orderLine.getProductID()))
+			return (long)Math.ceil((float)(price*(100-percent))/100); //Discount
 		else
 			return price; //No discount
 	}

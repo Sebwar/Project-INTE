@@ -4,14 +4,16 @@ package org.gradle;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.gradle.discounts.Discount;
+
 public class OrderLineTest {
 	
-	Product tk = new Product(240, "Tandkräm", 25, false);
-	Product tb = new Product(67, "Tandborste", 35, false);
-	Product tt = new Product(569, "Trädgårdstomte", 1500, false);
+	Product tk = new Product(240, "Tandkräm", new Money(Currency.SEK, 25), false);
+	Product tb = new Product(67, "Tandborste", new Money(Currency.EUR, 35), false);
+	Product tt = new Product(569, "Trädgårdstomte", new Money(Currency.USD, 1500), false);
 	
-	Product k = new Product(58, "Kaffe", 14, true);
-	Product h = new Product(463, "Högrev", 16, true);
+	Product k = new Product(58, "Kaffe", new Money(Currency.SEK, 14), true);
+	Product h = new Product(463, "Högrev", new Money(Currency.USD, 16), true);
 
 	OrderLine o1s = new OrderLine(tk, 2);
 	OrderLine o2s = new OrderLine(tb, 4);
@@ -38,14 +40,14 @@ public class OrderLineTest {
 	public void testTostringStyck(){
 		
 		assertEquals("ProduktID 240  2st*0.25 kr  0.50 kr", o1s.toString());
-		assertEquals("ProduktID 569  1st*15.0 kr  15.0 kr", ots.toString());
+		assertEquals("ProduktID 569  1st*$ 15.0  $ 15.0", ots.toString());
 	}
 	
 	@Test
 	public void testTostringKilo(){
 		
 		assertEquals("ProduktID 58  0.05kg*140.0 kr/kg  7.0 kr", o1k.toString());
-		assertEquals("ProduktID 463  0.15kg*160.0 kr/kg  24.0 kr", o2k.toString());
+		assertEquals("ProduktID 463  0.15kg*$ 160.0/kg  $ 24.0", o2k.toString());
 		
 	}
 	@Test
@@ -58,7 +60,7 @@ public class OrderLineTest {
 		assertEquals(98, o2s.getTotalPrice());
 		
 		assertEquals("ProduktID 240  2st*0.25 kr  0.50 kr", o1s.toString());
-		assertEquals("ProduktID 67  4st*0.35 kr  1.40 kr\n..30% discount -0.42 kr", o2s.toString());
+		assertEquals("ProduktID 67  4st*€ 0.35  € 1.40\n..30% discount -€ 0.42", o2s.toString());
 		
 		o2s.removeDiscount(disc);
 		
@@ -73,7 +75,7 @@ public class OrderLineTest {
 		assertEquals(1560, o2k.getTotalPrice());
 		
 		assertEquals("ProduktID 58  0.05kg*140.0 kr/kg  7.0 kr", o1k.toString());
-		assertEquals("ProduktID 463  0.15kg*160.0 kr/kg  24.0 kr\n..35% discount -8.40 kr", o2k.toString());
+		assertEquals("ProduktID 463  0.15kg*$ 160.0/kg  $ 24.0\n..35% discount -$ 8.40", o2k.toString());
 		
 		o2k.removeDiscount(disc);
 		
@@ -90,7 +92,7 @@ public class OrderLineTest {
 		assertEquals(100, o3s.getTotalPrice());
 		
 		
-		//assertEquals("ProduktID 240  2st*0.25 kr  0.50 kr", o2s.toString());
+		assertEquals("ProduktID 240  2st*0.25 kr  0.50 kr", o1s.toString());
 		//assertEquals("ProduktID 240  5st*0.25 kr  1.25 kr\n..Rabatt:4 för 3  -0,25kr", o2s.toString());
 	}
 	

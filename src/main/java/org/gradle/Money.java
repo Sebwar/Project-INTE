@@ -19,6 +19,10 @@ public class Money implements Comparable<Money> {
 		this(currency, amountInMajorUnit * MAJOR_UNIT + amountInMinorUnit);
 	}
 	
+	public Currency getCurrency() {
+		return currency;
+	}
+	
 	public long getAmountOfMajorUnit() {
 		return amount / MAJOR_UNIT;
 	}

@@ -2,6 +2,8 @@ package org.gradle;
 
 import java.util.Date;
 
+import org.gradle.discounts.Discount;
+
 
 public class DiscountAmountMock extends Discount {
 
@@ -27,14 +29,21 @@ public class DiscountAmountMock extends Discount {
 	public String toString() {
 		return "Buy " + requiredQuantity + " pay for " + (requiredQuantity-reductionQuantity);
 	}
+	
+	public boolean isDiscounted(OrderLine orderLine, boolean category) {
+		if (itemIDs.contains(orderLine.getProductID()) && orderLine.getProductQuantity() >= requiredQuantity && categoryDiscount == category)
+			return true;
+		else
+			return false;
+	}
 
 	@Override
-	public int apply(OrderLine orderLine) {
+	public long apply(OrderLine orderLine) {
 		//Compare Discount.productID with orderLine.productID
 		//If true return reduced price otherwise return normal price
 		
 		int productAmount = orderLine.getProductQuantity();
-		int productPrice = orderLine.getProductPrice();
+		long productPrice = orderLine.getProductPrice();
 		
 		if (itemIDs.contains(orderLine.getProductID()))
 			productAmount -= (productAmount / requiredQuantity) * reductionQuantity;
