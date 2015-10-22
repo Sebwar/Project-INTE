@@ -51,33 +51,31 @@ public class OrderLineTest {
 	@Test
 	public void testDiscountPercentStyck(){
 		
-		Discount disc = new DiscountPercentMock(d1, d2, 67, 30);
+		Discount disc = new DiscountPercentMock(d1, d2, 67, false, 30);
 		o2s.addDiscount(disc);
-		o1s.addDiscount(disc);
-		
 		
 		assertEquals(50, o1s.getTotalPrice());
 		assertEquals(98, o2s.getTotalPrice());
 		
 		assertEquals("ProduktID 240  2st*0.25 kr  0.50 kr", o1s.toString());
-		assertEquals("ProduktID 67  4st*0.35 kr  1.40 kr\n..Rabatt:30%  -0,42kr", o2s.toString());
+		assertEquals("ProduktID 67  4st*0.35 kr  1.40 kr\n..30% discount -0.42 kr", o2s.toString());
 		
-		//assertEquals("ProduktID 67  4st*35öre  140öre\n..Rabatt: -42öre", o2s.toString());
+		o2s.removeDiscount(disc);
 		
 	}
 	@Test
 	public void testDiscountPercentKilo(){
 		
-		Discount disc = new DiscountPercentMock(d1, d2, 463, 35);
+		Discount disc = new DiscountPercentMock(d1, d2, 463, false, 35);
 		o2k.addDiscount(disc);
-		o1k.addDiscount(disc);
-		
 		
 		assertEquals(700, o1k.getTotalPrice());
 		assertEquals(1560, o2k.getTotalPrice());
 		
 		assertEquals("ProduktID 58  0.05kg*140.0 kr/kg  7.0 kr", o1k.toString());
-		assertEquals("ProduktID 463  0.15kg*160.0 kr/kg  24.0 kr\n..Rabatt:35%  -840,0kr", o2k.toString());
+		assertEquals("ProduktID 463  0.15kg*160.0 kr/kg  24.0 kr\n..35% discount -8.40 kr", o2k.toString());
+		
+		o2k.removeDiscount(disc);
 		
 	}
 	@Test
@@ -85,12 +83,12 @@ public class OrderLineTest {
 		
 		OrderLine o3s = new OrderLine(tk, 5);
 		
-		Discount disc = new DiscountAmountMock(d1, d2, 240, 4, 1);
+		Discount disc = new DiscountAmountMock(d1, d2, 240, false, 4, 1);
 		o1s.addDiscount(disc);
-		o3s.addDiscount(disc);
 		
 		assertEquals(50, o1s.getTotalPrice());
 		assertEquals(100, o3s.getTotalPrice());
+		
 		
 		//assertEquals("ProduktID 240  2st*0.25 kr  0.50 kr", o2s.toString());
 		//assertEquals("ProduktID 240  5st*0.25 kr  1.25 kr\n..Rabatt:4 för 3  -0,25kr", o2s.toString());

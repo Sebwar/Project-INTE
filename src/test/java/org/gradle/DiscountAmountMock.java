@@ -8,8 +8,8 @@ public class DiscountAmountMock extends Discount {
 	private int requiredQuantity;
 	private int reductionQuantity;
 	
-	public DiscountAmountMock(Date startTime, Date endTime, int productID, int requiredQuantity, int reductionQuantity) {
-		super(startTime, endTime, productID);
+	public DiscountAmountMock(Date startTime, Date endTime, int itemID, boolean categoryDiscount, int requiredQuantity, int reductionQuantity) {
+		super(startTime, endTime, itemID, categoryDiscount);
 		
 		if (requiredQuantity < 2)
 			throw new IllegalArgumentException("Required quantity cannot be less than 2.");
@@ -23,6 +23,10 @@ public class DiscountAmountMock extends Discount {
 		this.requiredQuantity = requiredQuantity;
 		this.reductionQuantity = reductionQuantity;
 	}
+	
+	public String toString() {
+		return "Buy " + requiredQuantity + " pay for " + (requiredQuantity-reductionQuantity);
+	}
 
 	@Override
 	public int apply(OrderLine orderLine) {
@@ -32,7 +36,7 @@ public class DiscountAmountMock extends Discount {
 		int productAmount = orderLine.getProductQuantity();
 		int productPrice = orderLine.getProductPrice();
 		
-		if (productIDs.contains(orderLine.getProductID()))
+		if (itemIDs.contains(orderLine.getProductID()))
 			productAmount -= (productAmount / requiredQuantity) * reductionQuantity;
 		
 		return productAmount * productPrice;
