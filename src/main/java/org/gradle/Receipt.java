@@ -4,16 +4,18 @@ import java.util.ArrayList;
 
 public class Receipt {
 	
-//"ReceiptMockClass" är tillfälligt	
-	private ReceiptMockClass customer;
+	private Customer customer;
+	private Coupon coupon;
+	private int totalCost;
 	
-//	private ArrayList<OrderLine> orderLines = new ArrayList<>();
+	public ArrayList<OrderLine> orderLines = new ArrayList<>();
 	
-//"ReceiptMockClass" är tillfälligt	
-	public Receipt(ReceiptMockClass customer) {
-		
+	public Receipt(Customer customer, Coupon coupon) {
+		this.customer = customer;
+		this.coupon = coupon;
 	}
 	
-	
-
+	for (Orderline orderLine : orderLines) {
+		totalCost += orderLine.getTotalPrice();
+	}}
 }

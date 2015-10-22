@@ -39,6 +39,7 @@ public class ReceiptMockClass {
 	//Mocks Coupon
 	public ReceiptMockClass(int amount) {
 		this.amount = amount;
+		this.totalCost -= amount;
 	}
 	
 	public int getId() {
