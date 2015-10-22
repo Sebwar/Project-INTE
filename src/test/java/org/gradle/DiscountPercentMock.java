@@ -2,18 +2,25 @@ package org.gradle;
 
 import java.util.Date;
 
+
 public class DiscountPercentMock extends Discount {
+
+	private int percent;
 	
-	private int percent;  //Går att unvika avrundning?
-	
-	
-	public DiscountPercentMock(Date startTime, Date endTime, int productID, int percent) {
-		super(startTime, endTime, productID);
+	public DiscountPercentMock(Date startTime, Date endTime, int itemID, boolean categoryDiscount, int percent) {
+		super(startTime, endTime, itemID, categoryDiscount);
 		
-		if (percent < 0 || percent > 100)
-			throw new IllegalArgumentException();
+		if (percent < 0)
+			throw new IllegalArgumentException("Percent cannot be negative");
+		
+		if (percent > 100)
+			throw new IllegalArgumentException("Percent cannot be more than 100");
 		
 		this.percent = percent;
+	}
+	
+	public String toString() {
+		return percent+"% discount";
 	}
 
 	@Override
@@ -21,7 +28,7 @@ public class DiscountPercentMock extends Discount {
 		//Compare Discount.productID with orderLine.productID
 		//If true return reduced price otherwise return normal price
 		int price = orderLine.getProductPrice()*orderLine.getProductQuantity();
-		if (productIDs.contains(orderLine.getProductID()))
+		if (itemIDs.contains(orderLine.getProductID()))
 			return (int)Math.ceil((float)(price*(100-percent))/100); //Discount
 		else
 			return price; //No discount

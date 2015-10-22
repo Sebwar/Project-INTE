@@ -10,9 +10,9 @@ public class OrderLine {
 	private int price;
 	private int totalPrice;
 	private int productID;
+	private String stringOut;
 	private Money moneySt;
 	private Money moneyTot;
-	private Money moneyKg;
 	static ArrayList<Discount> discount = new ArrayList<Discount>();
 	
 	public OrderLine (Product product, int quantity) {
@@ -29,7 +29,7 @@ public class OrderLine {
 	//totalprice i öre (Minor unit)
 	public int getTotalPrice() {
 		for (int reg=0; reg < discount.size(); reg++ ){
-			if (discount.get(reg).isDiscounted(product)){
+			if (discount.get(reg).isDiscounted(productID, false)){
 				return discount.get(reg).apply(this);
 			}
 			
@@ -41,33 +41,41 @@ public class OrderLine {
 	
 	public String toString() {
 		int orgPrice = totalPrice;
+		Money moneyRa = new Money(Currency.SEK, totalPrice);
 		if(product.isWeightPriced() == true){
-			moneyKg = new Money(Currency.SEK, product.getPrice()*1000);
+			Money moneyKg = new Money(Currency.SEK, product.getPrice()*1000);
+			stringOut = "ProduktID "+productID+"  "+quantityKg+"kg*"+moneyKg.toString()+"/kg  "+moneyTot.toString();
 			for (Discount disc : discount){
 				totalPrice = disc.apply(this);
 				if (orgPrice != totalPrice){
-					return "ProduktID "+productID+"  "+quantityKg+"kg*"+moneyKg.toString()+"/kg  "+moneyTot.toString()+"\n..Rabatt:35%  -840,0kr";
+					moneyRa = moneyTot.subtract(totalPrice);
+					return stringOut+"\n.."+disc.toString()+" -"+moneyRa.toString();
 				}
 				
 			}
-			return "ProduktID "+productID+"  "+quantityKg+"kg*"+moneyKg.toString()+"/kg  "+moneyTot.toString();
+			return stringOut;
 				
 		}
 		else {
+			stringOut = "ProduktID "+productID+"  "+quantity+"st*"+moneySt.toString()+"  "+moneyTot.toString();
 			for (Discount disc : discount){
 				totalPrice = disc.apply(this);
 				if (orgPrice != totalPrice){
-					return "ProduktID "+productID+"  "+quantity+"st*"+moneySt.toString()+"  "+moneyTot.toString()+"\n..Rabatt:30%  -0,42kr";
+					moneyRa = moneyTot.subtract(totalPrice);
+					return stringOut+"\n.."+disc.toString()+" -"+moneyRa.toString();
 				}
 				
 			}
-			return "ProduktID "+productID+"  "+quantity+"st*"+moneySt.toString()+"  "+moneyTot.toString();
+			return stringOut;
 		}	
 	}
 	
 	//Metoder jag är osäker på
 	public void addDiscount(Discount discA){
 		discount.add(discA);
+	}
+	public void removeDiscount(Discount discR){
+		discount.remove(discR);
 	}
 	public int getProductID(){
 		return productID;
