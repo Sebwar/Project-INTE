@@ -41,15 +41,15 @@ public class OrderLineTest {
 	@Test
 	public void testTostringStyck(){
 		
-		assertEquals("ProduktID 240  2st*0.25 kr  0.50 kr", orderLine1.toString());
-		assertEquals("ProduktID 569  1st*$ 15.0  $ 15.0", orderLine3.toString());
+		assertEquals("Tandkräm  2st*0.25 kr  0.50 kr", orderLine1.toString());
+		assertEquals("Trädgårdstomte  1st*$ 15.0  $ 15.0", orderLine3.toString());
 	}
 	
 	@Test
 	public void testTostringKilo(){
 		
-		assertEquals("ProduktID 58  0.05kg*140.0 kr/kg  7.0 kr", orderLineWeighted1.toString());
-		assertEquals("ProduktID 463  0.15kg*$ 160.0/kg  $ 24.0", orderLineWeighted2.toString());
+		assertEquals("Kaffe  0.05kg*140.0 kr/kg  7.0 kr", orderLineWeighted1.toString());
+		assertEquals("Högrev  0.15kg*$ 160.0/kg  $ 24.0", orderLineWeighted2.toString());
 		
 	}
 	@Test
@@ -61,8 +61,8 @@ public class OrderLineTest {
 		assertEquals(50, orderLine1.getTotalPrice());
 		assertEquals(98, orderLine2.getTotalPrice());
 		
-		assertEquals("ProduktID 240  2st*0.25 kr  0.50 kr", orderLine1.toString());
-		assertEquals("ProduktID 67  4st*€ 0.35  € 1.40\n..30% discount -€ 0.42", orderLine2.toString());
+		assertEquals("Tandkräm  2st*0.25 kr  0.50 kr", orderLine1.toString());
+		assertEquals("Tandborste  4st*€ 0.35  € 1.40\n..30% discount -€ 0.42", orderLine2.toString());
 		
 		orderLine2.removeDiscount(disc);
 		
@@ -76,8 +76,8 @@ public class OrderLineTest {
 		assertEquals(700, orderLineWeighted1.getTotalPrice());
 		assertEquals(1560, orderLineWeighted2.getTotalPrice());
 		
-		assertEquals("ProduktID 58  0.05kg*140.0 kr/kg  7.0 kr", orderLineWeighted1.toString());
-		assertEquals("ProduktID 463  0.15kg*$ 160.0/kg  $ 24.0\n..35% discount -$ 8.40", orderLineWeighted2.toString());
+		assertEquals("Kaffe  0.05kg*140.0 kr/kg  7.0 kr", orderLineWeighted1.toString());
+		assertEquals("Högrev  0.15kg*$ 160.0/kg  $ 24.0\n..35% discount -$ 8.40", orderLineWeighted2.toString());
 		
 		orderLineWeighted2.removeDiscount(disc);
 		
@@ -94,8 +94,7 @@ public class OrderLineTest {
 		assertEquals(100, o3s.getTotalPrice());
 		
 		
-		assertEquals("ProduktID 240  2st*0.25 kr  0.50 kr", orderLine1.toString());
-		//assertEquals("ProduktID 240  5st*0.25 kr  1.25 kr\n..Rabatt:4 för 3  -0,25kr", o2s.toString());
+		assertEquals("Tandkräm  2st*0.25 kr  0.50 kr", orderLine1.toString());
 	}
 	
 	

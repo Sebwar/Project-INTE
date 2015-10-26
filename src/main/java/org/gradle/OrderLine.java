@@ -46,11 +46,11 @@ public class OrderLine {
 			symbols.setDecimalSeparator('.');
 			DecimalFormat decimalFormat = new DecimalFormat("0.###", symbols);
 			Money moneyKg = new Money(product.getCurrency(), product.getPrice()*1000);
-			stringOut = "ProduktID "+product.getID()+"  " + decimalFormat.format(quantityKg)+"kg*"
+			stringOut = product.getName()+"  " + decimalFormat.format(quantityKg)+"kg*"
 			+moneyKg.toString()+"/kg  "+totalPrice;
 		}
 		else {
-			stringOut = "ProduktID "+product.getID()+"  "+quantity+"st*"+moneyEach.toString()+"  "+totalPrice;
+			stringOut = product.getName()+"  "+quantity+"st*"+moneyEach.toString()+"  "+totalPrice;
 		}
 		
 		for (Discount discount : discounts){
