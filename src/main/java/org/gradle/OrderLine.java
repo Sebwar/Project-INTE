@@ -24,7 +24,7 @@ public class OrderLine {
 	public long getTotalPrice() {
 		//Apply discount.
 		for (int reg=0; reg < discounts.size(); reg++ )
-			if (discounts.get(reg).isDiscounted(this, false))
+			if (discounts.get(reg).isDiscounted(this))
 				return discounts.get(reg).apply(this);
 		return product.getPrice() * quantity;
 	}
@@ -51,8 +51,8 @@ public class OrderLine {
 			/* If discount is an instance of DiscountAmount the isDiscounted method is called from
 			 * a DiscountAmount object, otherwise its called from the super class. 
 			 */
-			if (discount instanceof DiscountAmount && ((DiscountAmount)discount).isDiscounted(this, false)
-					|| !(discount instanceof DiscountAmount) && discount.isDiscounted(this, false)) {
+			if (discount instanceof DiscountAmount && ((DiscountAmount)discount).isDiscounted(this)
+					|| !(discount instanceof DiscountAmount) && discount.isDiscounted(this)) {
 				moneyReduction = new Money(product.getCurrency(), product.getPrice() * quantity).subtract(totalPrice);
 				stringOut += "\n.."+discount.toString()+" -"+moneyReduction.toString();
 				break;

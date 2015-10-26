@@ -2,6 +2,7 @@ package org.gradle.discounts;
 
 import java.util.Date;
 
+import org.gradle.Category;
 import org.gradle.OrderLine;
 
 
@@ -30,11 +31,11 @@ public class DiscountAmount extends Discount {
 		return "Buy " + requiredQuantity + " pay for " + (requiredQuantity-reductionQuantity);
 	}
 
-	public boolean isDiscounted(OrderLine orderLine, boolean category) {
-		if (itemIDs.contains(orderLine.getProductID()) && orderLine.getProductQuantity() >= requiredQuantity && categoryDiscount == category)
-			return true;
-		else
-			return false;
+	public boolean isDiscounted(OrderLine orderLine) {
+		if (orderLine.getProductQuantity() >= requiredQuantity)
+			return super.isDiscounted(orderLine);
+		
+		return false;
 	}
 	
 	@Override

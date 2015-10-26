@@ -2,7 +2,6 @@ package org.gradle;
 
 import static org.junit.Assert.*;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.gradle.discounts.Discount;
@@ -25,8 +24,10 @@ public class DiscountTest {
 	
 	private static final Money VALID_MONEY = new Money(Currency.SEK, 10);
 	
-	private static final Discount percentDiscount = new DiscountPercent(VALID_START_TIME, VALID_END_TIME, VALID_DISCOUNT_PRODUCT_ID, false,  VALID_PERCENT);
-	private static final Discount amountDiscount = new DiscountAmount(VALID_START_TIME, VALID_END_TIME, VALID_DISCOUNT_PRODUCT_ID, false,  VALID_REQ_AMOUNT, VALID_RED_AMOUNT);
+	private static final Discount PERCENT_DISCOUNT = new DiscountPercent(VALID_START_TIME, VALID_END_TIME, VALID_DISCOUNT_PRODUCT_ID, false,  VALID_PERCENT);
+	private static final Discount AMOUNT_DISCOUNT = new DiscountAmount(VALID_START_TIME, VALID_END_TIME, VALID_DISCOUNT_PRODUCT_ID, false,  VALID_REQ_AMOUNT, VALID_RED_AMOUNT);
+	private static final Discount AMOUNT_CATEGORY_DISCOUNT = new DiscountAmount(VALID_START_TIME, VALID_END_TIME, VALID_DISCOUNT_CATEGORY_ID, true,  VALID_REQ_AMOUNT, VALID_RED_AMOUNT);
+	private static final Category DISCOUNTED_CATEGORY = new Category(VALID_DISCOUNT_CATEGORY_ID, "Test");
 	
 	//Discount IllegalArgument
 	@Test(expected=IllegalArgumentException.class)
@@ -74,47 +75,48 @@ public class DiscountTest {
 	//Method tests
 	@Test
 	public void testPercent() { //No discount
-		long price = percentDiscount.apply(new OrderLineMock(VALID_PRODUCT_ID));
+		long price = PERCENT_DISCOUNT.apply(new OrderLineMock(VALID_PRODUCT_ID));
 		assertEquals(30, price);
 	}
 	
 	@Test
 	public void testReducedPricePercent() { //Discount
-		long price = percentDiscount.apply(new OrderLineMock(VALID_DISCOUNT_PRODUCT_ID));
+		long price = PERCENT_DISCOUNT.apply(new OrderLineMock(VALID_DISCOUNT_PRODUCT_ID));
 		assertEquals(15, price);
 	}
 	
 	@Test
 	public void testAmount() { //No discount
-		long price = amountDiscount.apply(new OrderLineMock(VALID_PRODUCT_ID));
+		long price = AMOUNT_DISCOUNT.apply(new OrderLineMock(VALID_PRODUCT_ID));
 		assertEquals(30, price);
 	}
 	
 	@Test
 	public void testReducedPriceAmount() { //Discount
-		long price = amountDiscount.apply(new OrderLineMock(VALID_DISCOUNT_PRODUCT_ID));
+		long price = AMOUNT_DISCOUNT.apply(new OrderLineMock(VALID_DISCOUNT_PRODUCT_ID));
 		assertEquals(20, price);
 	}
 	
 	@Test
 	public void testProductIsNotDiscounted() {
-		assertEquals(false, amountDiscount.isDiscounted(new OrderLine(new Product(VALID_PRODUCT_ID, "Test", VALID_MONEY, false), 1), false));
+		assertEquals(false, AMOUNT_DISCOUNT.isDiscounted(new OrderLine(new Product(VALID_PRODUCT_ID, "Test", VALID_MONEY, false), 3)));
 	}
 	
 	@Test
 	public void testProductIsDiscounted() {
-		assertEquals(true, amountDiscount.isDiscounted(new OrderLine(new Product(VALID_DISCOUNT_PRODUCT_ID, "Test", VALID_MONEY, false), 3), false));
+		assertEquals(true, AMOUNT_DISCOUNT.isDiscounted(new OrderLine(new Product(VALID_DISCOUNT_PRODUCT_ID, "Test", VALID_MONEY, false), 3)));
 	}
-	
-	/*@Test
+	@Test
 	public void testCategoryIsNotDiscounted() {
-		Discount discount = new DiscountAmount(VALID_START_TIME, VALID_END_TIME, VALID_DISCOUNT_CATEGORY_ID, true,  VALID_REQ_AMOUNT, VALID_RED_AMOUNT);
-		assertEquals(false, discount.isDiscounted(new OrderLine(new Product(VALID_CATEGORY_ID, "Test", VALID_MONEY, false), 1), true));
+		DISCOUNTED_CATEGORY.addProduct(VALID_DISCOUNT_PRODUCT_ID);
+		DISCOUNTED_CATEGORY.addToList();
+		assertEquals(false, AMOUNT_CATEGORY_DISCOUNT.isDiscounted(new OrderLine(new Product(VALID_PRODUCT_ID, "Test", VALID_MONEY, false), 3)));
 	}
 	
 	@Test
 	public void testCategoryIsDiscounted() {
-		Discount discount = new DiscountAmount(VALID_START_TIME, VALID_END_TIME, VALID_DISCOUNT_CATEGORY_ID, true,  VALID_REQ_AMOUNT, VALID_RED_AMOUNT);
-		assertEquals(true, discount.isDiscounted(new OrderLine(new Product(VALID_DISCOUNT_CATEGORY_ID, "Test", VALID_MONEY, false), 1), true));
-	}*/
+		DISCOUNTED_CATEGORY.addProduct(VALID_DISCOUNT_PRODUCT_ID);
+		DISCOUNTED_CATEGORY.addToList();
+		assertEquals(true, AMOUNT_CATEGORY_DISCOUNT.isDiscounted(new OrderLine(new Product(VALID_DISCOUNT_PRODUCT_ID, "Test", VALID_MONEY, false), 3)));
+	}
 }

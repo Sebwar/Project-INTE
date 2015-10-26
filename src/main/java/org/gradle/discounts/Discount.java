@@ -1,6 +1,7 @@
 package org.gradle.discounts;
 import java.util.Date;
 
+import org.gradle.Category;
 import org.gradle.OrderLine;
 
 import java.util.ArrayList;
@@ -31,11 +32,18 @@ public abstract class Discount {
 		this.categoryDiscount = categoryDiscount;
 	}
 	
-	public boolean isDiscounted(OrderLine orderLine, boolean category) {
-		if (itemIDs.contains(orderLine.getProductID()) && categoryDiscount == category)
+	public boolean isDiscounted(OrderLine orderLine) {
+		if (categoryDiscount) {
+			//Loops through all categories and checks if orderLine.productID is part of one of those categories
+			for (Integer id : itemIDs) {
+				System.out.println(id);
+				if (Category.getCategoryByID(id).inCategory(orderLine.getProductID()))
+					return true;
+			}
+		} else if (!categoryDiscount && itemIDs.contains(orderLine.getProductID()))
 			return true;
-		else
-			return false;
+		
+		return false;
 	}
 	
 	public void addItem(int itemID) {
