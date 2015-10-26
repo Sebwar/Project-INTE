@@ -1,6 +1,7 @@
 package org.gradle;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 import org.gradle.discounts.Discount;
@@ -29,6 +30,10 @@ public class OrderLine {
 		return product.getPrice() * quantity;
 	}
 	
+	public long getTrueTotalPrice() {
+		return product.getPrice() * quantity;
+	}
+	
 	//ProductID används tills getName()-metod har implementerats i Product.java
 	
 	public String toString() {
@@ -37,7 +42,9 @@ public class OrderLine {
 		String stringOut;
 		if(product.isWeightPriced()) {
 			double quantityKg = (double)quantity/1000;
-			DecimalFormat decimalFormat = new DecimalFormat("0.###");
+			DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+			symbols.setDecimalSeparator('.');
+			DecimalFormat decimalFormat = new DecimalFormat("0.###", symbols);
 			Money moneyKg = new Money(product.getCurrency(), product.getPrice()*1000);
 			stringOut = "ProduktID "+product.getID()+"  " + decimalFormat.format(quantityKg)+"kg*"
 			+moneyKg.toString()+"/kg  "+totalPrice;

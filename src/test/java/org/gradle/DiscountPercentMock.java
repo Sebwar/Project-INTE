@@ -1,5 +1,4 @@
 package org.gradle;
-
 import java.util.Date;
 
 import org.gradle.discounts.Discount;
@@ -29,12 +28,10 @@ public class DiscountPercentMock extends Discount {
 	public long apply(OrderLine orderLine) {
 		//Compare Discount.productID with orderLine.productID
 		//If true return reduced price otherwise return normal price
-		long price = orderLine.getProductPrice()*orderLine.getProductQuantity();
+		long price = orderLine.getTrueTotalPrice();
 		if (itemIDs.contains(orderLine.getProductID()))
-			return (int)Math.ceil((float)(price*(100-percent))/100); //Discount
+			return (long)Math.ceil((float)(price*(100-percent))/100); //Discount
 		else
 			return price; //No discount
 	}
-		
 }
-

@@ -29,7 +29,7 @@ public class DiscountPercent extends Discount {
 	public long apply(OrderLine orderLine) {
 		//Compare Discount.productID with orderLine.productID
 		//If true return reduced price otherwise return normal price
-		long price = orderLine.getTotalPrice();
+		long price = orderLine.getTrueTotalPrice();
 		if (itemIDs.contains(orderLine.getProductID()))
 			return (long)Math.ceil((float)(price*(100-percent))/100); //Discount
 		else
