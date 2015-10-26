@@ -23,7 +23,7 @@ public abstract class Discount {
 		if (itemID < 0)
 			throw new IllegalArgumentException("Product/Category ID cannot be negative.");
 		
-		if (endTime.getTime() < startTime.getTime())
+		if (endTime.before(startTime))
 			throw new IllegalArgumentException("End time cannot be earlier than start time.");
 		
 		itemIDs = new ArrayList<Integer>();

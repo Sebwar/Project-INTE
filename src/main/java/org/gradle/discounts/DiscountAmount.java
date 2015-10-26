@@ -42,13 +42,12 @@ public class DiscountAmount extends Discount {
 		//Compare Discount.productID with orderLine.productID
 		//If true return reduced price otherwise return normal price
 		
-		int productAmount = orderLine.getProductQuantity();
-		long productPrice = orderLine.getProductPrice();
+		int productQuantity = orderLine.getProductQuantity();
 		
 		if (itemIDs.contains(orderLine.getProductID()))
-			productAmount -= (productAmount / requiredQuantity) * reductionQuantity;
+			productQuantity -= (productQuantity / requiredQuantity) * reductionQuantity;
 		
-		return productAmount * productPrice;
+		return productQuantity * orderLine.getProductPrice();
 	}
 
 }

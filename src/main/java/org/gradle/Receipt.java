@@ -6,11 +6,12 @@ import org.gradle.discounts.Coupon;
 
 public class Receipt {
 	
-	private Customer customer;
+	private final Customer customer;
 	private ArrayList<Coupon> coupons = new ArrayList<>();
-	public ArrayList<OrderLine> orderLines = new ArrayList<>();
+	private ArrayList<OrderLine> orderLines = new ArrayList<>();
 	
 	public Receipt(Customer customer) {
+		//Ska inte behöva ta en customer. En till konstruktor som inte tar customer.
 		this.customer = customer;
 	}
 	

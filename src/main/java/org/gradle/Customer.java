@@ -8,8 +8,7 @@ public class Customer {
 	private String address;
 	private String phone;
 	
-	//Construct
-	public Customer (String orgNr, String firstName, String lastName, String address, String street, String phone) {
+	public Customer (String orgNr, String firstName, String lastName, String street, String address, String phone) {
 		this.orgNr = orgNr;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,7 +38,6 @@ public class Customer {
 	}
 	
 	@Override
-	//Formated String that represents this object
 	public String toString() {
         return orgNr + "\n" + firstName + " " + lastName + "\n" + street + "\n" + address + "\n" + phone;
     }	
