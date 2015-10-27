@@ -53,14 +53,18 @@ public class stateTest {
 	}
 	
 	/*	Testfall 2
-	 * 	1. Lägg in ny vara
-	 * 	2. Ingen kupong
-	 * 	3. Inget medlemskort (Lägger in customer i kvitto-klassen)
-	 * 	4. Betala
+	 * 	1. Lägg in ny vara med med ogiltigt ID
+	 * 	2. Lägg in ny vara
+	 * 	3. Ingen kupong
+	 * 	4. Inget medlemskort (Lägger in customer i kvitto-klassen)
+	 * 	5. Betala
 	 */
 	@Test
 	public void testCaseTwo() {
 		//Product(id, name, price, weightPriced)
+		try {
+			Product productInvalid = new Product(-1, "Product1", new Money(Currency.SEK, 10000), false); //100kr
+		} catch (IllegalArgumentException e){};
 		Product product = new Product(0, "Product1", new Money(Currency.SEK, 10000), false); //100kr
 		
 		//Lägger in produkter i orderLines för att kunna hantera dem i kvitto-klassen

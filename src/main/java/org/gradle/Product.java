@@ -7,6 +7,8 @@ public class Product {
 	private boolean weightPriced;
 	
 	public Product(int id, String name, Money price, boolean weightPriced) {
+		if (id < 0)
+			throw new IllegalArgumentException("ID cannot be negative.");
 		this.id = id;
 		this.name = name;
 		this.price = price;
