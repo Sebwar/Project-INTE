@@ -28,7 +28,7 @@ public class Receipt {
 	public long getCouponReduction() {
 		long couponReduction = 0;
 		for (Coupon coupon : coupons)
-			couponReduction += coupon.getCouponReduction();
+			couponReduction += coupon.getCouponPrice();
 		return couponReduction;
 	}
 	
@@ -46,7 +46,7 @@ public class Receipt {
 			outputString += "New Sale:\n";
 		}
 		else {
-			outputString += "New sale for: " + Customer.getFullName() + "\n";
+			outputString += "New sale for: " + customer.getFullName() + "\n";
 		}
 		for (int i = 0; i<orderLines.size(); i++) {
 				outputString += orderLines.get(i);
