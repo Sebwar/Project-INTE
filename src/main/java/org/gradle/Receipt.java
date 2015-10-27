@@ -11,8 +11,11 @@ public class Receipt {
 	private ArrayList<OrderLine> orderLines = new ArrayList<>();
 	
 	public Receipt(Customer customer) {
-		//Ska inte behöva ta en customer. En till konstruktor som inte tar customer.
 		this.customer = customer;
+	}
+	
+	public Receipt () {
+		
 	}
 	
 	public long getTotalPrice() {
@@ -20,6 +23,13 @@ public class Receipt {
 		for (OrderLine orderLine : orderLines)
 			totalCost += orderLine.getTotalPrice();
 		return totalCost;
+	}
+	
+	public long getCouponReduction() {
+		long couponReduction = 0;
+		for (Coupon coupon : coupons)
+			couponReduction += coupon.getCouponReduction();
+		return couponReduction;
 	}
 	
 	public void addCoupon(Coupon coupon) {
@@ -30,7 +40,26 @@ public class Receipt {
 		orderLines.add(orderLine);
 	}
 	
-	public void generateText() {
+	public String toString() {
+		String outputString;
+		if (this.customer == null) {
+			outputString += "New Sale:\n";
+		}
+		else {
+			outputString += "New sale for: " + Customer.getFullName() + "\n";
+		}
+		for (int i = 0; i<orderLines.size(); i++) {
+				outputString += orderLines.get(i);
+		}
 		
+		if (this.getCouponReduction() < 1) {
+		outputString += "\nTotal price: " + this.getTotalPrice() + ":-";
+		}
+		else {
+			outputString += "\nReduction from coupons: " + this.getCouponReduction() + "\nTotal price after reduction: " + (this.getTotalPrice() - this.getCouponReduction());
+		}
+		return outputString;
 	}
+	
+	
 }
