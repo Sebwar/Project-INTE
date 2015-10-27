@@ -6,16 +6,18 @@ import org.gradle.discounts.Coupon;
 
 public class Receipt {
 	
-	private final Customer customer;
+	private Customer customer;
 	private ArrayList<Coupon> coupons = new ArrayList<>();
 	private ArrayList<OrderLine> orderLines = new ArrayList<>();
 	
 	public Receipt(Customer customer) {
+		if(customer == null)
+			throw new IllegalArgumentException("Customer cannot be null.");
 		this.customer = customer;
 	}
 	
 	public Receipt () {
-		
+		this.customer = null;
 	}
 	
 	public long getTotalPrice() {
@@ -41,7 +43,7 @@ public class Receipt {
 	}
 	
 	public String toString() {
-		String outputString;
+		String outputString = "";
 		if (this.customer == null) {
 			outputString += "New Sale:\n";
 		}

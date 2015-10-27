@@ -3,85 +3,52 @@ package org.gradle;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-
 public class ReceiptTest {
 	
-	ReceiptMock prod = new ReceiptMock(10042, "Soda", 1, false, 15);
-	ReceiptMock cust = new ReceiptMock("org123", "John", "Doe", "Central City", "555 Main Street", "555 123 456");
+	private Customer testCustomer = new Customer("org123", "John", "Doe", "Central City", "555 Main Street", "555 123 456");
+	private Product testProduct1 = new Product(555, "Horse", new Money(Currency.SEK, 101), false);
+	private Product testProduct2 = new Product(404, "Eyepatch", new Money(Currency.SEK, 27), false);
+	private Product testProduct3 = new Product(420, "Railgun", new Money(Currency.SEK, 12), false);
+	private OrderLine testOrderLine1 = new OrderLine(testProduct1, 5);
+	private OrderLine testOrderLine2 = new OrderLine(testProduct2, 4);
+	private OrderLine testOrderLine3 = new OrderLine(testProduct3, 7);
+	private Receipt receipt;
 	
-	//Tests construction of a new mock product
 	@Test
-	public void testNewProductID() {
-		assertEquals(10042, prod.getId());
+	public void testCunstructorWithoutCustomer() {
+		receipt = new Receipt();
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorWithNullParameter() {
+		receipt = new Receipt(null);
 	}
 	
 	@Test
-	public void testNewProductName() {
-		assertEquals("Soda", prod.getName());
+	public void testConstructorWithCustomer() {
+		receipt = new Receipt(testCustomer);
 	}
 	
 	@Test
-	public void testNewProductAmount() {
-		assertEquals(1, prod.getAmount());
+	public void testGetTotalPriceNoOrderLine() {
+		receipt = new Receipt();
+		assertEquals(0, receipt.getTotalPrice());
 	}
 	
 	@Test
-	public void testNewProductPriceByWeight() {
-		assertEquals(false, prod.getPriceByWeight());
+	public void testGetTotalPriceSingleOrderLine() {
+		receipt = new Receipt();
+		receipt.addOrderLine(testOrderLine1);
+		assertEquals(505, receipt.getTotalPrice());
 	}
 	
 	@Test
-	public void testNewProductPrice() {
-		assertEquals(15, prod.getProductPrice());
+	public void testGetTotalPriceMultipleOrderLines() {
+		receipt = new Receipt();
+		receipt.addOrderLine(testOrderLine1);
+		receipt.addOrderLine(testOrderLine2);
+		receipt.addOrderLine(testOrderLine3);
+		assertEquals(697, receipt.getTotalPrice());
 	}
-	
-	//Tests construction of a new mock customer
-	@Test
-	public void testNewCustomerOrgNr() {
-		assertEquals("org123", cust.getOrgNr());
-	}
-	
-	@Test
-	public void testNewCustomerFirstName() {
-		assertEquals("John", cust.getFirstName());
-	}
-	
-	@Test
-	public void testNewCustomerLastName() {
-		assertEquals("Doe", cust.getLastName());
-	}
-	
-	@Test
-	public void testNewCustomerAddress() {
-		assertEquals("Central City", cust.getAddress());
-	}
-	
-	@Test
-	public void testNewCustomerStreet() {
-		assertEquals("555 Main Street", cust.getStreet());
-	}
-	
-	@Test
-	public void testNewCustomerPhone() {
-		assertEquals("555 123 456", cust.getPhone());
-	}
-	
-	@Test
-	public void testGetTotal() {
-		ReceiptMock testProduct = new ReceiptMock(123, "Test", 2, false, 15);
-		assertEquals(30, testProduct.getTotalCost());
-	}
-	
-	@Test
-	public void testNewCoupon() {
-		ReceiptMock testCoupon = new ReceiptMock(50);
-			assertEquals(50, testCoupon.getAmount());
-	}
-	
-	@Test
-	public void testCouponDeduction() {
-		ReceiptMock newTestCoupon = new ReceiptMock(40);
-		assertEquals(-40, newTestCoupon.getTotalCost());
-	}
-	
+		
 }
