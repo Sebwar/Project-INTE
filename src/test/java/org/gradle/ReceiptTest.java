@@ -6,45 +6,82 @@ import org.junit.Test;
 
 public class ReceiptTest {
 	
+	ReceiptMock prod = new ReceiptMock(10042, "Soda", 1, false, 15);
+	ReceiptMock cust = new ReceiptMock("org123", "John", "Doe", "Central City", "555 Main Street", "555 123 456");
+	
+	//Tests construction of a new mock product
 	@Test
-	public void testNewProduct() {
-		ReceiptMockClass prod = new ReceiptMockClass(10042, "Soda", 1, false, 15);
+	public void testNewProductID() {
 		assertEquals(10042, prod.getId());
-		assertEquals("Soda", prod.getName());
-		assertEquals(1, prod.getAmount());
-		assertEquals(false, prod.getPriceByWeight());
-		assertEquals(15, prod.getProductPrice());
 	}
 	
 	@Test
-	public void testNewCustomer() {
-		ReceiptMockClass cust = new ReceiptMockClass("org123", "John", "Doe", "Central City", "555 Main Street", "555 123 456");
+	public void testNewProductName() {
+		assertEquals("Soda", prod.getName());
+	}
+	
+	@Test
+	public void testNewProductAmount() {
+		assertEquals(1, prod.getAmount());
+	}
+	
+	@Test
+	public void testNewProductPriceByWeight() {
+		assertEquals(false, prod.getPriceByWeight());
+	}
+	
+	@Test
+	public void testNewProductPrice() {
+		assertEquals(15, prod.getProductPrice());
+	}
+	
+	//Tests construction of a new mock customer
+	@Test
+	public void testNewCustomerOrgNr() {
 		assertEquals("org123", cust.getOrgNr());
+	}
+	
+	@Test
+	public void testNewCustomerFirstName() {
 		assertEquals("John", cust.getFirstName());
+	}
+	
+	@Test
+	public void testNewCustomerLastName() {
 		assertEquals("Doe", cust.getLastName());
+	}
+	
+	@Test
+	public void testNewCustomerAddress() {
 		assertEquals("Central City", cust.getAddress());
+	}
+	
+	@Test
+	public void testNewCustomerStreet() {
 		assertEquals("555 Main Street", cust.getStreet());
+	}
+	
+	@Test
+	public void testNewCustomerPhone() {
 		assertEquals("555 123 456", cust.getPhone());
 	}
 	
 	@Test
 	public void testGetTotal() {
-		ReceiptMockClass testProduct = new ReceiptMockClass(123, "Test", 2, false, 15);
+		ReceiptMock testProduct = new ReceiptMock(123, "Test", 2, false, 15);
 		assertEquals(30, testProduct.getTotalCost());
 	}
 	
 	@Test
 	public void testNewCoupon() {
-		ReceiptMockClass testCoupon = new ReceiptMockClass(50);
+		ReceiptMock testCoupon = new ReceiptMock(50);
 			assertEquals(50, testCoupon.getAmount());
 	}
 	
 	@Test
 	public void testCouponDeduction() {
-		ReceiptMockClass newTestCoupon = new ReceiptMockClass(40);
+		ReceiptMock newTestCoupon = new ReceiptMock(40);
 		assertEquals(-40, newTestCoupon.getTotalCost());
 	}
-	
-	
 	
 }
