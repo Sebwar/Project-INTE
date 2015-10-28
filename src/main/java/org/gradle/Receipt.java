@@ -1,5 +1,7 @@
 package org.gradle;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 import org.gradle.discounts.Coupon;
@@ -49,6 +51,15 @@ public class Receipt {
 	}
 	
 	public String toString() {
+		
+		double totalMPrice = (double)getTotalPrice()/100;
+		double couponMReduction = (double)(this.getTotalPrice() - this.getCouponReduction())/100;
+		double moneyAfterCouponRed = (double)this.getCouponReduction()/100;
+		
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setDecimalSeparator('.');
+		DecimalFormat decimalFormat = new DecimalFormat("0.0#", symbols);
+		
 		String outputString = "";
 		if (this.customer == null) {
 			outputString += "New sale:\n";
@@ -61,11 +72,15 @@ public class Receipt {
 		}
 		
 		if (this.getCouponReduction() < 1) {
-			outputString += "Total price: " + this.getTotalPrice()/100 + " " + currency.getSign();
+			String totalPrice = decimalFormat.format(totalMPrice);
+			outputString += "Total price: " + totalPrice + " " + currency.getSign();
 		}
 		else {
-			outputString += "Reduction from coupons: " + (this.getTotalPrice() - this.getCouponReduction())/100 + " " + currency.getSign() +
-					"\nTotal price after reduction: " +  this.getCouponReduction()/100 + " " + currency.getSign();
+			String couponReduction = decimalFormat.format(couponMReduction);
+			String priceAfterCouponRed = decimalFormat.format(moneyAfterCouponRed);
+			
+			outputString += "Reduction from coupons: " + couponReduction + " " + currency.getSign() +
+					"\nTotal price after reduction: " +  priceAfterCouponRed + " " + currency.getSign();
 		}
 		return outputString;
 	}

@@ -80,14 +80,14 @@ public class ReceiptTest {
 	public void testToStringWithCustomer() {
 		receipt = new Receipt(testCustomer);
 		receipt.addOrderLine(testOrderLine1);
-		assertEquals("New sale for: John Doe\nHorse  5st*1.1 kr  5.5 kr\nTotal price: 505:-", receipt.toString());
+		assertEquals("New sale for: John Doe\nHorse  5st*1.1 kr  5.5 kr\nTotal price: 5.05 kr", receipt.toString());
 	}
 	
 	@Test
 	public void testToStringWithoutCustomer() {
 		receipt = new Receipt();
 		receipt.addOrderLine(testOrderLine1);
-		assertEquals("New Sale:\nHorse  5st*1.1 kr  5.5 kr\nTotal price: 505:-", receipt.toString());
+		assertEquals("New sale:\nHorse  5st*1.1 kr  5.5 kr\nTotal price: 5.05 kr", receipt.toString());
 	}
 	
 	@Test
@@ -95,7 +95,7 @@ public class ReceiptTest {
 		receipt = new Receipt();
 		receipt.addOrderLine(testOrderLine1);
 		receipt.addOrderLine(testOrderLine2);
-		assertEquals("New Sale:\nHorse  5st*1.1 kr  5.5 kr\nEyepatch  4st*0.27 kr  1.8 kr\nTotal price: 613:-", receipt.toString());
+		assertEquals("New sale:\nHorse  5st*1.1 kr  5.5 kr\nEyepatch  4st*0.27 kr  1.8 kr\nTotal price: 6.13 kr", receipt.toString());
 	}
 	
 	@Test
@@ -105,7 +105,7 @@ public class ReceiptTest {
 		testCoupon1 = new Coupon(new Money(Currency.SEK, receipt.getTotalPrice()),
 				new Money(Currency.SEK, 100), new Money(Currency.SEK, 200));
 		receipt.addCoupon(testCoupon1);
-		assertEquals("New Sale:\nHorse  5st*1.1 kr  5.5 kr\nReduction from coupons: 100\nTotal price after reduction: 405:-", receipt.toString());
+		assertEquals("New sale:\nHorse  5st*1.1 kr  5.5 kr\nReduction from coupons: 1.0 kr\nTotal price after reduction: 4.05 kr", receipt.toString());
 	}
 		
 }

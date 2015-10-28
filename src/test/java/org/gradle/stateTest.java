@@ -46,8 +46,8 @@ public class stateTest {
 		String expectedString = "New sale for: Name LastName\n"
 				+ "Product1  1st*10.0 kr  10.0 kr\n"
 				+ "Product2  2st*50.0 kr  100.0 kr\n"
-				+ "Reduction from coupons: 10 kr\n"
-				+ "Total price after reduction: 100 kr";
+				+ "Reduction from coupons: 10.0 kr\n"
+				+ "Total price after reduction: 100.0 kr";
 		//Pågrund av att detta system inte är helt klart blir inte resultatet korrekt ännu
 		assertEquals(expectedString, receipt.toString());
 	}
@@ -81,7 +81,7 @@ public class stateTest {
 		//System.out.println( receipt.toString() ); //Skriver ut kvitto
 		String expectedString = "New sale:\n"
 				+ "Product1  1st*100.0 kr  100.0 kr\n"
-				+ "Total price: 100 kr";
+				+ "Total price: 100.0 kr";
 		//Pågrund av att detta system inte är helt klart blir inte resultatet korrekt ännu
 		assertEquals(expectedString, receipt.toString());
 	}
