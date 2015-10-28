@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.gradle.discounts.Coupon;
 import org.junit.Test;
-public class stateTest {
+public class StateTest {
 
 	/*	Testfall 1
 	 * 	1. Lägg in ny vara

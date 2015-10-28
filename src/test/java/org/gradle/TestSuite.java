@@ -13,7 +13,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	MoneyTest.class,
 	OrderLineTest.class,
 	ReceiptTest.class,
-	stateTest.class
+	StateTest.class
 })
 public class TestSuite {
 
