@@ -6,7 +6,7 @@ import org.junit.Test;
 public class CategoryTest {
 	
 	private static final int VALID_ID = 1;
-	private static final int VALID_ID2 = 1;
+	private static final int VALID_ID2 = 2;
 	private static final String VALID_NAME = "test";
 
 	@Test
