@@ -9,6 +9,10 @@ public class Product {
 	public Product(int id, String name, Money price, boolean weightPriced) {
 		if (id < 0)
 			throw new IllegalArgumentException("ID cannot be negative.");
+		
+		if (price.getTotalAmountInMinorUnit() <= 0)
+			throw new IllegalArgumentException();
+		
 		this.id = id;
 		this.name = name;
 		this.price = price;
