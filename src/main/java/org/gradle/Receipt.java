@@ -51,14 +51,14 @@ public class Receipt {
 			outputString += "New sale for: " + customer.getFullName() + "\n";
 		}
 		for (int i = 0; i<orderLines.size(); i++) {
-				outputString += orderLines.get(i);
+				outputString += orderLines.get(i) + "\n";
 		}
 		
 		if (this.getCouponReduction() < 1) {
-		outputString += "\nTotal price: " + this.getTotalPrice() + ":-";
+		outputString += "Total price: " + this.getTotalPrice() + ":-";
 		}
 		else {
-			outputString += "\nReduction from coupons: " + (this.getTotalPrice() - this.getCouponReduction()) +
+			outputString += "Reduction from coupons: " + (this.getTotalPrice() - this.getCouponReduction()) +
 					"\nTotal price after reduction: " +  this.getCouponReduction() + ":-";
 		}
 		return outputString;

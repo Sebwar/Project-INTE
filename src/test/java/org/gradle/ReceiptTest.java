@@ -91,6 +91,14 @@ public class ReceiptTest {
 	}
 	
 	@Test
+	public void testToStringWithMultipleOrderLines() {
+		receipt = new Receipt();
+		receipt.addOrderLine(testOrderLine1);
+		receipt.addOrderLine(testOrderLine2);
+		assertEquals("New Sale:\nHorse  5st*1.1 kr  5.5 kr\nEyepatch  4st*0.27 kr  1.8 kr\nTotal price: 613:-", receipt.toString());
+	}
+	
+	@Test
 	public void testToStringWithCoupon() {
 		receipt = new Receipt();
 		receipt.addOrderLine(testOrderLine1);
