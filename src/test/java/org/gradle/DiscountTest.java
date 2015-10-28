@@ -16,7 +16,7 @@ public class DiscountTest {
 	private static final int VALID_PRODUCT_ID = 0;
 	private static final int VALID_CATEGORY_ID = 0;
 	private static final int VALID_DISCOUNT_PRODUCT_ID = 1;
-	private static final int VALID_DISCOUNT_CATEGORY_ID = 1;
+	private static final int VALID_DISCOUNT_CATEGORY_ID = 2;
 	
 	private static final int VALID_PERCENT = 50; //0-100
 	private static final int VALID_REQ_AMOUNT = 3; // < 0
