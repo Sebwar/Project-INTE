@@ -9,6 +9,7 @@ public class Receipt {
 	private Customer customer;
 	private ArrayList<Coupon> coupons = new ArrayList<>();
 	private ArrayList<OrderLine> orderLines = new ArrayList<>();
+	private Currency currency;
 	
 	public Receipt(Customer customer) {
 		if(customer == null)
@@ -39,13 +40,18 @@ public class Receipt {
 	}
 	
 	public void addOrderLine(OrderLine orderLine) {
+		if (currency == null)
+			currency = orderLine.getCurrency();
+		else if (orderLine.getCurrency() != currency)
+			throw new IllegalArgumentException("Cannot add orderLine with different currency!");
+		
 		orderLines.add(orderLine);
 	}
 	
 	public String toString() {
 		String outputString = "";
 		if (this.customer == null) {
-			outputString += "New Sale:\n";
+			outputString += "New sale:\n";
 		}
 		else {
 			outputString += "New sale for: " + customer.getFullName() + "\n";
@@ -55,11 +61,11 @@ public class Receipt {
 		}
 		
 		if (this.getCouponReduction() < 1) {
-		outputString += "Total price: " + this.getTotalPrice() + ":-";
+			outputString += "Total price: " + this.getTotalPrice()/100 + " " + currency.getSign();
 		}
 		else {
-			outputString += "Reduction from coupons: " + (this.getTotalPrice() - this.getCouponReduction()) +
-					"\nTotal price after reduction: " +  this.getCouponReduction() + ":-";
+			outputString += "Reduction from coupons: " + (this.getTotalPrice() - this.getCouponReduction())/100 + " " + currency.getSign() +
+					"\nTotal price after reduction: " +  this.getCouponReduction()/100 + " " + currency.getSign();
 		}
 		return outputString;
 	}

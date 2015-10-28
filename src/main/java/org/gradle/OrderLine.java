@@ -34,6 +34,10 @@ public class OrderLine {
 		return product.getPrice() * quantity;
 	}
 	
+	public Currency getCurrency() {
+		return product.getCurrency();
+	}
+	
 	//ProductID används tills getName()-metod har implementerats i Product.java
 	
 	public String toString() {
