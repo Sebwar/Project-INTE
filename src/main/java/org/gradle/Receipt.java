@@ -12,7 +12,7 @@ public class Receipt {
 	
 	public Receipt(Customer customer) {
 		if(customer == null)
-			throw new IllegalArgumentException("Customer cannot be null.");
+			throw new NullPointerException("Customer cannot be null.");
 		this.customer = customer;
 	}
 	
@@ -58,7 +58,8 @@ public class Receipt {
 		outputString += "\nTotal price: " + this.getTotalPrice() + ":-";
 		}
 		else {
-			outputString += "\nReduction from coupons: " + this.getCouponReduction() + "\nTotal price after reduction: " + (this.getTotalPrice() - this.getCouponReduction());
+			outputString += "\nReduction from coupons: " + (this.getTotalPrice() - this.getCouponReduction()) +
+					"\nTotal price after reduction: " +  this.getCouponReduction() + ":-";
 		}
 		return outputString;
 	}
