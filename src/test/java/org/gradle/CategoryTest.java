@@ -6,6 +6,7 @@ import org.junit.Test;
 public class CategoryTest {
 	
 	private static final int VALID_ID = 1;
+	private static final int VALID_ID2 = 1;
 	private static final String VALID_NAME = "test";
 
 	@Test
@@ -15,10 +16,12 @@ public class CategoryTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorIDAlreadyExists() {
-		Category test = new Category(VALID_ID, VALID_NAME);
+		Category test = new Category(VALID_ID2, VALID_NAME);
 		test.addToList();
-		Category test2 = new Category(VALID_ID, VALID_NAME);
+		Category test2 = new Category(VALID_ID2, VALID_NAME);
 		test2.addToList();
+		
+		Category.clearList();
 	}
 	
 	@Test(expected=IllegalArgumentException.class)

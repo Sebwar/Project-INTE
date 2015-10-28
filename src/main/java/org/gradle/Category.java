@@ -31,6 +31,10 @@ public class Category {
 		return categories.get(id);
 	}
 	
+	public static void clearList() { //For testing
+		categories.clear();
+	}
+	
 	public void addToList() {
 		if (!categories.containsValue(this))
 			categories.put(categoryID, this);
